@@ -43,7 +43,6 @@ public class PlatController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        // Colonnes du tableau
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
