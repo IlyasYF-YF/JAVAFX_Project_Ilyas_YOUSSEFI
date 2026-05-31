@@ -24,7 +24,6 @@ public class PlatService {
         }
     }
 
-    // ✅ 2. MODIFIER un plat existant
     public void modifier(Plat p) {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -38,7 +37,6 @@ public class PlatService {
         }
     }
 
-    // ✅ 3. SUPPRIMER un plat par ID
     public void supprimer(int id) {
         Transaction tx = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -57,7 +55,6 @@ public class PlatService {
         }
     }
 
-    // ✅ 4. LISTER TOUS les plats
     public List<Plat> listerTous() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("FROM Plat", Plat.class).list();
@@ -67,7 +64,6 @@ public class PlatService {
         }
     }
 
-    // ✅ 5. RECHERCHER par nom ou catégorie
     public List<Plat> rechercher(String motCle) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             String hql = "FROM Plat p WHERE lower(p.nom) LIKE :mc OR lower(p.categorie) LIKE :mc";
