@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #f0f2f5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication.PlatController">
+   <children>
+   
+       <HBox style="-fx-background-color: #1e2a38; -fx-padding: 16 24 16 24;">
+      <children>
+              <Label style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" text="Gestion des Plats" />
+      </children>
+       </HBox>
+   
+    
+       <HBox spacing="16" style="-fx-padding: 10 24 20 24;" VBox.vgrow="ALWAYS">
+      <children>
+      
+              <VBox prefWidth="300" spacing="10" style="-fx-background-color: white; -fx-padding: 16;                      -fx-background-radius: 8;                      -fx-effect: dropshadow(gaussian,#ccc,4,0,0,2);">
+         <children>
+         
+                     <Label style="-fx-text-fill: #1e2a38; -fx-font-size: 13; -fx-font-weight: bold;" text="Formulaire Plat" />
+         
+                     <Label style="-fx-text-fill: #555; -fx-font-size: 11;" text="Code" />
+                     <TextField fx:id="tfCode" promptText="ex: P001" style="-fx-background-color: #f5f5f5; -fx-border-color: #ddd;                               -fx-border-radius: 4; -fx-background-radius: 4;" />
+         
+                     <Label style="-fx-text-fill: #555; -fx-font-size: 11;" text="Nom du plat" />
+                     <TextField fx:id="tfNom" style="-fx-background-color: #f5f5f5; -fx-border-color: #ddd;                               -fx-border-radius: 4; -fx-background-radius: 4;" />
+         
+                     <Label style="-fx-text-fill: #555; -fx-font-size: 11;" text="Catégorie" />
+                     <ComboBox fx:id="cbCategorie" prefWidth="268" style="-fx-background-color: #f5f5f5; -fx-border-color: #ddd;                              -fx-border-radius: 4; -fx-background-radius: 4;" />
+         
+                     <Label style="-fx-text-fill: #555; -fx-font-size: 11;" text="Prix (DH)" />
+                     <TextField fx:id="tfPrix" style="-fx-background-color: #f5f5f5; -fx-border-color: #ddd;                               -fx-border-radius: 4; -fx-background-radius: 4;" />
+         
+                     <Label style="-fx-text-fill: #555; -fx-font-size: 11;" text="Quantité en stock" />
+                     <Spinner fx:id="spQuantite" editable="true" prefWidth="268" style="-fx-background-color: #f5f5f5;" />
+         
+                     <CheckBox fx:id="chkDispo" selected="true" style="-fx-text-fill: #333;" text="Disponible" />
+         
+                     <HBox spacing="8">
+            <children>
+                            <Button onAction="#onAjouter" prefWidth="130" style="-fx-background-color: #1976d2; -fx-text-fill: white;                                -fx-font-weight: bold; -fx-background-radius: 5;" text=" Ajouter" />
+                            <Button onAction="#onModifier" prefWidth="130" style="-fx-background-color: #388e3c; -fx-text-fill: white;                                -fx-font-weight: bold; -fx-background-radius: 5;" text="Modifier" />
+            </children>
+                     </HBox>
+         
+                     <HBox spacing="8">
+            <children>
+                            <Button onAction="#onSupprimer" prefWidth="130" style="-fx-background-color: #d32f2f; -fx-text-fill: white;                                -fx-font-weight: bold; -fx-background-radius: 5;" text=" Supprimer" />
+                            <Button onAction="#onVider" prefWidth="130" style="-fx-background-color: #757575; -fx-text-fill: white;                                -fx-font-weight: bold; -fx-background-radius: 5;" text="Vider" />
+            </children>
+                     </HBox>
+         </children>
+      
+              </VBox>
+      
+              <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 16;                      -fx-background-radius: 8;                      -fx-effect: dropshadow(gaussian,#ccc,4,0,0,2);" HBox.hgrow="ALWAYS">
+         <children>
+         
+                     <Label style="-fx-text-fill: #1e2a38; -fx-font-size: 13; -fx-font-weight: bold;" text="Liste des Plats" />
+         
+                     <HBox spacing="8">
+            <children>
+                            <TextField fx:id="tfRecherche" onKeyReleased="#onRecherche" promptText="Rechercher par nom ou catégorie..." style="-fx-background-color: #f5f5f5; -fx-border-color: #ddd;                                   -fx-border-radius: 4; -fx-background-radius: 4;" HBox.hgrow="ALWAYS" />
+                            <Button onAction="#onActualiser" style="-fx-background-color: #1976d2; -fx-text-fill: white;                                -fx-background-radius: 5;" text="Actualiser" />
+            </children>
+                     </HBox>
+         
+                     <TableView fx:id="tableView" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+                         <columns>
+                             <TableColumn fx:id="colId" prefWidth="45" text="ID" />
+                             <TableColumn fx:id="colCode" prefWidth="96.0" text="Code" />
+                             <TableColumn fx:id="colNom" prefWidth="180.0" text="Nom" />
+                             <TableColumn fx:id="colCategorie" prefWidth="123.0" text="Catégorie" />
+                             <TableColumn fx:id="colPrix" prefWidth="95.0" text="Prix (DH)" />
+                             <TableColumn fx:id="colQte" prefWidth="79.0" text="Qté" />
+                             <TableColumn fx:id="colDispo" prefWidth="85.0" text="Dispo" />
+                         </columns>
+                     </TableView>
+         </children>
+      
+              </VBox>
+      </children>
+   
+       </HBox>
+   </children>
+
+</VBox>
