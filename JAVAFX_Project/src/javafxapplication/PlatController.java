@@ -16,7 +16,6 @@ import java.util.ResourceBundle;
 
 public class PlatController implements Initializable {
 
-    // ── FORMULAIRE ──────────────────────────────────────────
     @FXML private TextField       tfCode;
     @FXML private TextField       tfNom;
     @FXML private ComboBox<String> cbCategorie;
@@ -24,7 +23,6 @@ public class PlatController implements Initializable {
     @FXML private Spinner<Integer> spQuantite;
     @FXML private CheckBox        chkDispo;
 
-    // ── TABLEAU ──────────────────────────────────────────────
     @FXML private TableView<Plat>           tableView;
     @FXML private TableColumn<Plat, Integer> colId;
     @FXML private TableColumn<Plat, String>  colCode;
@@ -34,19 +32,14 @@ public class PlatController implements Initializable {
     @FXML private TableColumn<Plat, Integer> colQte;
     @FXML private TableColumn<Plat, Boolean> colDispo;
 
-    // ── RECHERCHE ────────────────────────────────────────────
     @FXML private TextField tfRecherche;
 
-    // ── DASHBOARD / STATISTIQUES ─────────────────────────────
   
 
-    // ── SERVICE ─────────────────────────────────────────────
     private final PlatService            service    = new PlatService();
     private final ObservableList<Plat>   listePlats = FXCollections.observableArrayList();
 
-    // ════════════════════════════════════════════════════════
-    // INITIALISATION
-    // ════════════════════════════════════════════════════════
+  
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -59,17 +52,14 @@ public class PlatController implements Initializable {
         colQte.setCellValueFactory(new PropertyValueFactory<>("quantite"));
         colDispo.setCellValueFactory(new PropertyValueFactory<>("disponible"));
 
-        // ComboBox catégories
         cbCategorie.setItems(FXCollections.observableArrayList(
                 "Entrée", "Plat", "Dessert", "Boisson"
         ));
 
-        // Spinner quantité (0 → 999, défaut 0)
         spQuantite.setValueFactory(
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999, 0)
         );
 
-        // Sélection dans le tableau → remplit le formulaire
         tableView.getSelectionModel().selectedItemProperty().addListener(
                 (obs, ancien, sel) -> { if (sel != null) remplirFormulaire(sel); }
         );
@@ -77,9 +67,7 @@ public class PlatController implements Initializable {
         chargerTable();
     }
 
-    // ════════════════════════════════════════════════════════
-    // BOUTON — Ajouter
-    // ════════════════════════════════════════════════════════
+  
     @FXML
     public void onAjouter() {
         List<String> erreurs = validerFormulaire();
@@ -99,9 +87,6 @@ public class PlatController implements Initializable {
         chargerTable();
     }
 
-    // ════════════════════════════════════════════════════════
-    // BOUTON — Modifier
-    // ════════════════════════════════════════════════════════
     @FXML
     public void onModifier() {
         Plat sel = tableView.getSelectionModel().getSelectedItem();
@@ -114,7 +99,6 @@ public class PlatController implements Initializable {
         List<String> erreurs = validerFormulaire();
         if (!erreurs.isEmpty()) { afficherErreurs(erreurs); return; }
 
-        // ── Confirmation avant modification ──────────────────
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setTitle("Confirmer la modification");
         confirm.setHeaderText(null);
@@ -136,10 +120,6 @@ public class PlatController implements Initializable {
             }
         });
     }
-
-    // ════════════════════════════════════════════════════════
-    // BOUTON — Supprimer
-    // ════════════════════════════════════════════════════════
     @FXML
     public void onSupprimer() {
         Plat sel = tableView.getSelectionModel().getSelectedItem();
@@ -148,7 +128,6 @@ public class PlatController implements Initializable {
             return;
         }
 
-        // Boîte de confirmation avant suppression
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setTitle("Confirmer la suppression");
         confirm.setHeaderText(null);
@@ -164,9 +143,7 @@ public class PlatController implements Initializable {
         });
     }
 
-    // ════════════════════════════════════════════════════════
-    // BOUTON — Recherche (onKeyReleased)
-    // ════════════════════════════════════════════════════════
+    
     @FXML
     public void onRecherche() {
         String motCle = tfRecherche.getText().trim();
@@ -176,37 +153,25 @@ public class PlatController implements Initializable {
         listePlats.setAll(resultats);
         tableView.setItems(listePlats);
     }
-    // ════════════════════════════════════════════════════════
-    // BOUTON — Actualiser
-    // ════════════════════════════════════════════════════════
+    
     @FXML
     public void onActualiser() {
         chargerTable();
     }
 
-    // ════════════════════════════════════════════════════════
-    // BOUTON — Vider formulaire
-    // ════════════════════════════════════════════════════════
+  
     @FXML
     public void onVider() {
         viderFormulaire();
     }
 
-    // ════════════════════════════════════════════════════════
-    // MÉTHODES UTILITAIRES — Tableau & Stats
-    // ════════════════════════════════════════════════════════
+   
 
     private void chargerTable() {
     listePlats.setAll(service.listerTous());
     tableView.setItems(listePlats);
     }
 
-    /** Met à jour les 4 cartes KPI du dashboard. */
-    
-
-    // ════════════════════════════════════════════════════════
-    // MÉTHODES UTILITAIRES — Formulaire
-    // ════════════════════════════════════════════════════════
 
     private void remplirFormulaire(Plat p) {
         tfCode.setText(p.getCode());
@@ -227,9 +192,7 @@ public class PlatController implements Initializable {
         tableView.getSelectionModel().clearSelection();
     }
 
-    // ════════════════════════════════════════════════════════
-    // VALIDATION — retourne la liste des messages d'erreur
-    // ════════════════════════════════════════════════════════
+   
 
     private List<String> validerFormulaire() {
         List<String> erreurs = new ArrayList<>();
@@ -254,11 +217,7 @@ public class PlatController implements Initializable {
         return erreurs;
     }
 
-    // ════════════════════════════════════════════════════════
-    // ALERTES JAVAFX
-    // ════════════════════════════════════════════════════════
-
-    /** Alerte WARNING avec la liste des erreurs de validation (comme la capture). */
+   
     private void afficherErreurs(List<String> erreurs) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Champs invalides");
@@ -267,7 +226,6 @@ public class PlatController implements Initializable {
         alert.showAndWait();
     }
 
-    /** Alerte WARNING générique (texte libre). */
     private void afficherAvertissement(String titre, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(titre);
@@ -276,7 +234,6 @@ public class PlatController implements Initializable {
         alert.showAndWait();
     }
 
-    /** Alerte INFORMATION pour les opérations réussies (comme la capture). */
     private void afficherSucces(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Succès");
